@@ -7,8 +7,11 @@
 /public/bundles/
 /var/
 /vendor/
-###< symfony/framework-bundle ###
+.env.dev
+.env
+.env.test
 
+###< symfony/framework-bundle ###
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
