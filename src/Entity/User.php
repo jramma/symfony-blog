@@ -52,8 +52,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Interaction::class, mappedBy: 'user', orphanRemoval: true)]
     private Collection $interactions;
 
-    public function __construct()
+    /**
+     * @param int|null $id
+     */
+    public function __construct(?int $id = null, ?string $email = null, ?string $password = null, ?string $photo = null, ?string $description = null)
     {
+        $this->id = $id;
+        $this->email = $email;
+        $this->password = $password;
+        $this->photo = $photo;
+        $this->description = $description;
         $this->posts = new ArrayCollection();
         $this->interactions = new ArrayCollection();
     }
@@ -82,13 +90,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     /**
+     * @return list<string>
      * @see UserInterface
      *
-     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -133,14 +141,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getPoto(): ?string
+    public function getPhoto(): ?string
     {
-        return $this->poto;
+        return $this->photo;
     }
 
-    public function setPoto(?string $poto): static
+    public function setPhoto(?string $photo): static
     {
-        $this->poto = $poto;
+        $this->$photo = $photo;
 
         return $this;
     }

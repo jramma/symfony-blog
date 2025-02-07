@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -14,7 +15,9 @@ class PostType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('type')
+            ->add('type', ChoiceType::class, [
+                'choices' => Post::TYPES,
+            ])
             ->add('text')
             ->add('file')
             ->add('creation_date', null, [

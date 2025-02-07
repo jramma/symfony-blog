@@ -13,31 +13,31 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class PostController extends AbstractController
 {
-    private $em;
+    private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
-    #[Route('/post/{id}', name: 'app_post')]
-    public function index($id): Response
+    #[Route('/', name: 'app_post')]
+    public function index(): Response
     {
-        $post = $this->em->getRepository(Post::class)->find($id);
-        $custom_post = $this->em->getRepository(Post::class)->findPost($id);
+        $posts = $this->em->getRepository(Post::class)->findAll();
         return $this->render('post/index.html.twig', [
-            'post' => $post,
-            'custom_post' => $custom_post
+            'posts' => $posts,
         ]);
     }
 
     #[Route('/insert/post', name: 'insert_post')]
     public function insert(Request $request): Response
     {
+        $user = $this->em->getRepository(User::class)->find(1);
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $post->setUser($user);
             $this->em->persist($post);
             $this->em->flush();
             return $this->redirectToRoute('app_post', ['id' => $post->getId()]);

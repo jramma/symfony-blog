@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+    {{ form_start(registration_form) }}
+    {{ form_widget(registration_form) }}
+    {{ form_end(registration_form) }}
+{% endblock %}
