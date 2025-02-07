@@ -44,8 +44,16 @@ class Post
     #[ORM\OneToMany(targetEntity: Interaction::class, mappedBy: 'post', orphanRemoval: true)]
     private Collection $interactions;
 
-    public function __construct()
+    public function __construct($title = null, $type = null, $text = null, $file = null, $creation_date = null, $url = null, $user = null)
     {
+        $this->title = $title;
+        $this->type = $type;
+        $this->text = $text;
+        $this->file = $file;
+        $this->creation_date = new \DateTime();
+        $this->url = $url;
+        $this->user = $user;
+
         $this->interactions = new ArrayCollection();
     }
 
