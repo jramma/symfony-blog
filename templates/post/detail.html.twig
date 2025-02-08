@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+    <style>
+        .post-detail-container {
+            max-width: 900px;
+            margin: 20px auto;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-detail-container h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .post-detail-container p {
+            color: #555;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+
+        .post-detail-container strong {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .post-file {
+            margin-top: 20px;
+            background-color: #eaeaea;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .post-file a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .post-file a:hover {
+            background-color: #0056b3;
+        }
+
+        .post-meta {
+            margin-top: 30px;
+            background-color: #f1f1f1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .post-meta p {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .post-meta a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .post-meta a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+    <div class="post-detail-container">
+        <h1>{{ post.title }}</h1>
+        <p><strong>Fecha de creación:</strong> {{ post.creationDate|date('d-m-Y H:i') }}</p>
+        <p>{{ post.text }}</p>
+
+        {% if post.file %}
+            <div class="post-file">
+                <h3>Archivo adjunto:</h3>
+                <a href="{{ asset('uploads/' ~ post.file) }}" target="_blank">
+                    Descargar archivo
+                </a>
+            </div>
+        {% endif %}
+
+        <div class="post-meta">
+            <p><strong>Publicado por:</strong> {{ post.user.email }}</p>
+            <p><strong>URL:</strong> <a href="{{ post.url }}" target="_blank">{{ post.url }}</a></p>
+        </div>
+    </div>
+{% endblock %}

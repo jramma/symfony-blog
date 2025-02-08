@@ -1,0 +1,14 @@
+<!-- templates/header.html.twig -->
+<header>
+    <nav>
+        <ul>
+            <li><a href="{{ path('app_post') }}">Inicio</a></li>
+            {% if app.user %}
+                <li><a href="{{ path('app_logout') }}">Cerrar sesión</a></li>
+            {% else %}
+                <li><a href="{{ path('app_login') }}">Iniciar sesión</a></li>
+                <li><a href="{{ path('user_registration') }}">Registrarse</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>

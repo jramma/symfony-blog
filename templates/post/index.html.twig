@@ -1,24 +1,133 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostController!{% endblock %}
+{% block title %}Blog Posts{% endblock %}
 
 {% block body %}
     <style>
-        .example-wrapper {
-            margin: 1em auto;
-            max-width: 800px;
-            width: 95%;
-            font: 18px/1.5 sans-serif;
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
         }
 
-        .example-wrapper code {
-            background: #F5F5F5;
-            padding: 2px 6px;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2em;
+        }
+
+        .form-wrapper {
+            background-color: #fff;
+            padding: 2em;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 2em;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            text-align: center;
+            margin-bottom: 0.5em;
+        }
+
+        .form-wrapper input, .form-wrapper textarea {
+            width: 100%;
+            padding: 0.8em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 1em;
+            font-size: 1em;
+        }
+
+        .form-wrapper button {
+            background-color: #007bff;
+            color: white;
+            padding: 0.8em 1.5em;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        .form-wrapper button:hover {
+            background-color: #0056b3;
+        }
+
+        .posts-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .post-item {
+            background-color: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 1.5em;
+            width: 300px;
+            margin: 0 auto;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .post-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .post-item h2 {
+            color: #007bff;
+            font-size: 1.6em;
+            margin-bottom: 0.5em;
+        }
+
+        .post-item p {
+            color: #555;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .post-item .post-date {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 1em;
+        }
+
+        .post-item .post-url {
+            font-size: 0.9em;
+            color: #007bff;
+            text-decoration: none;
         }
     </style>
 
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-    {{ dump(posts) }}
+    <div class="container">
+        <h1>Blog Posts</h1>
+
+        <div class="form-wrapper">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit">Create Post</button>
+            {{ form_end(form) }}
+        </div>
+
+        <div class="posts-list">
+            {% for post in posts %}
+                <div class="post-item">
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.text }}</p>
+                    <p class="post-date">Posted on: {{ post.creation_date|date("F j, Y") }}</p> <!-- Muestra la fecha de creación -->
+                    <p><a href="{{ post.url }}" class="post-url" target="_blank">{{ post.url }}</a></p> <!-- Muestra el URL -->
+                    <p>Contact: <a href="mailto:{{ post.email }}" class="post-url">{{ post.email }}</a></p> <!-- Muestra el email -->
+                    <a href="{{ path('post_detail', {'url': post.url}) }}">{{ post.title }}</a>
+                </div>
+            {% else %}
+                <p>No posts available yet!</p>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

@@ -1,17 +1,84 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Blog{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        <style>
+            /* Estilos generales para la página */
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+                color: #333;
+            }
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+            /* Estilos para el header fijo */
+            header {
+                background-color: #333;
+                color: white;
+                padding: 15px 0;
+                text-align: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                z-index: 10;
+            }
+
+            header a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 20px;
+                margin: 0 10px;
+                border-radius: 4px;
+                transition: background-color 0.3s ease;
+            }
+
+            header a:hover {
+                background-color: #555;
+            }
+
+            /* Ajustar el contenido principal para que no quede cubierto por el header fijo */
+            .main-content {
+                padding: 80px 20px 20px;  /* Agregar espacio en la parte superior */
+            }
+
+            /* Estilos para el footer */
+            footer {
+                background-color: #333;
+                color: white;
+                text-align: center;
+                padding: 10px;
+                position: relative;
+                width: 100%;
+            }
+
+            footer a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+
+    {% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+
+<!-- Header -->
+{% include 'scaffolding/header.html.twig' %}
+
+<div class="main-content">
+    {% block body %}{% endblock %}
+</div>
+
+<!-- Footer -->
+{% include 'scaffolding/footer.html.twig' %}
+
+</body>
 </html>
