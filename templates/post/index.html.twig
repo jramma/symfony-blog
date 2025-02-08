@@ -17,5 +17,8 @@
         }
     </style>
 
-    {{ dump($posts) }}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    {{ dump(posts) }}
 {% endblock %}

@@ -59,4 +59,15 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+
+
+    public function findAllPosts(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('p.id, p.title, p.text, p.file, p.creation_date, p.url, u.email')
+            ->join('p.user', 'u')
+            ->getQuery()
+            ->getResult();
+    }
 }
