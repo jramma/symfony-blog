@@ -13,16 +13,33 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+
+/**
+ * Controlador para gestionar los posts.
+ */
 final class PostController extends AbstractController
 {
     private EntityManagerInterface $em;
 
+    /**
+     * Constructor del controlador.
+     *
+     * @param EntityManagerInterface $em El administrador de entidades.
+     */
     public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
 
-
+    /**
+     * Inserta un nuevo post.
+     *
+     * @param Request $request La solicitud HTTP.
+     * @param SluggerInterface $slugger El slugger para generar nombres de archivo seguros.
+     * @param EntityManagerInterface $em El administrador de entidades.
+     * @param Security $security El servicio de seguridad.
+     * @return Response La respuesta HTTP.
+     */
     #[Route('/', name: 'app_post')]
     public function insert(Request $request, SluggerInterface $slugger, EntityManagerInterface $em, Security $security): Response
     {
@@ -78,7 +95,13 @@ final class PostController extends AbstractController
         ]);
     }
 
-
+    /**
+     * Muestra el detalle de un post.
+     *
+     * @param string $url La URL amigable del post.
+     * @param PostRepository $postRepository El repositorio de posts.
+     * @return Response La respuesta HTTP.
+     */
     #[Route('/post/{url}', name: 'post_detail')]
     public function detail(string $url, PostRepository $postRepository): Response
     {
@@ -93,6 +116,4 @@ final class PostController extends AbstractController
             'post' => $post,
         ]);
     }
-
-
 }

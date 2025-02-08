@@ -22,3 +22,5 @@ Para instalar las dependencias del proyecto, ejecuta el siguiente comando:
 ```sh
 composer install
 ```
+
+NO SIRVE PARA PRODUCCIÓN, las peticiones y respuestas son http, es un proyecto para localhost.
